@@ -1,0 +1,60 @@
+uuid: e5d60c34-863e-4b9f-9865-9b1f24229137
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.iq_geotree.field_iqgt_continent
+    - field.field.taxonomy_term.iq_geotree.field_iqgt_iso_code_2
+    - field.field.taxonomy_term.iq_geotree.field_iqgt_iso_code_3
+    - field.field.taxonomy_term.iq_geotree.field_iqgt_iso_numeric_code
+    - taxonomy.vocabulary.iq_geotree
+  module:
+    - options
+    - text
+id: taxonomy_term.iq_geotree.default
+targetEntityType: taxonomy_term
+bundle: iq_geotree
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_iqgt_continent:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_iqgt_iso_code_2:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_iqgt_iso_code_3:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_iqgt_iso_numeric_code:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,8 @@
+uuid: 8b866a01-23d6-4e74-92a6-7cc177c93521
+langcode: de
+status: true
+dependencies: {  }
+name: Geotree
+vid: iq_geotree
+description: 'taxonomy of the countries which contains information like ISO2 code, ISO3 code, name,...'
+weight: 0

@@ -1,0 +1,21 @@
+uuid: 1f2a776d-99aa-452b-b1ef-366b4ab3a991
+langcode: de
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_iqgt_iso_code_3
+field_name: field_iqgt_iso_code_3
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 3
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

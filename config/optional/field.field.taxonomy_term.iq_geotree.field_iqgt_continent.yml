@@ -1,0 +1,21 @@
+uuid: c8c3e305-b9ea-4f48-b6e3-db8449662e3a
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_iqgt_continent
+    - taxonomy.vocabulary.iq_geotree
+  module:
+    - options
+id: taxonomy_term.iq_geotree.field_iqgt_continent
+field_name: field_iqgt_continent
+entity_type: taxonomy_term
+bundle: iq_geotree
+label: Continent
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

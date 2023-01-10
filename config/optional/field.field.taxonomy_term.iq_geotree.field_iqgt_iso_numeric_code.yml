@@ -1,0 +1,23 @@
+uuid: 431d5b87-c2e7-4c34-a699-4a337a75227e
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_iqgt_iso_numeric_code
+    - taxonomy.vocabulary.iq_geotree
+id: taxonomy_term.iq_geotree.field_iqgt_iso_numeric_code
+field_name: field_iqgt_iso_numeric_code
+entity_type: taxonomy_term
+bundle: iq_geotree
+label: 'ISO Numeric Code'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
