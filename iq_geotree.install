@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * @file
+ * iq_geotree install/update/uninstall hook implementation.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Site\Settings;
+
+/**
+ * Implements hook_install().
+ */
+function iq_geotree_install() {
+
+  $vocabulary = Vocabulary::load('iq_geotree');
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = $module_handler->getModule('iq_geotree')->getPath();
+  if (empty($vocabulary)) {
+    // Obtain configuration from yaml files.
+    $iq_geotree_config_path = $module_path . '/config';
+    $iq_geotree_config_storage = new FileStorage($iq_geotree_config_path);
+
+    $default_config_path = Settings::get('config_sync_directory', FALSE);
+    $default_config_storage = new FileStorage($default_config_path);
+
+    // Obtain the storage manager for vocabularies.
+    // Create a new vocabulary from the yaml configuration and save.
+    $taxonomy_vocabulary_config = $default_config_storage->read('taxonomy.vocabulary.iq_geotree');
+    if (empty($taxonomy_vocabulary_config)) {
+      // If config-sync not available then read module's config for vocabulary.
+      $taxonomy_vocabulary_config = $iq_geotree_config_storage->read('taxonomy.vocabulary.iq_geotree');
+    }
+
+    \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')
+      ->create($taxonomy_vocabulary_config)
+      ->save();
+
+    $config_field_items = [
+      // Config of the iso2 code field.
+      'field.storage.taxonomy_term.field_iqgt_iso_code_2',
+      'field.field.taxonomy_term.iq_geotree.field_iqgt_iso_code_2',
+      // Config of the iso3 code field.
+      'field.storage.taxonomy_term.field_iqgt_iso_code_3',
+      'field.field.taxonomy_term.iq_geotree.field_iqgt_iso_code_3',
+      // Config of the iso numeric code field.
+      'field.storage.taxonomy_term.field_iqgt_iso_numeric_code',
+      'field.field.taxonomy_term.iq_geotree.field_iqgt_iso_numeric_code',
+      // Config of the continent field.
+      'field.storage.taxonomy_term.field_iqgt_continent',
+      'field.field.taxonomy_term.iq_geotree.field_iqgt_continent',
+      // Config of the taxonomy term countries information form display.
+      'core.entity_form_display.taxonomy_term.iq_geotree.default',
+      // Config of the taxonomy term countries information view display.
+      'core.entity_view_display.taxonomy_term.iq_geotree.default',
+    ];
+
+    foreach ($config_field_items as $config_name) {
+      $config_record = $default_config_storage->read($config_name);
+      if (empty($config_record)) {
+        // If config-sync not available then read module's config for field.
+        $config_record = $iq_geotree_config_storage->read($config_name);
+      }
+
+      $entity_type = \Drupal::service('config.manager')->getEntityTypeIdByName($config_name);
+      /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+      $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+      $entity = $storage->createFromStorageRecord($config_record);
+      $entity->save();
+    }
+  }
+  $continent_json = file_get_contents('http://country.io/continent.json');
+  $continent_data = json_decode($continent_json, TRUE);
+  $country_json = file_get_contents('http://country.io/names.json');
+  $country_data = json_decode($country_json, TRUE);
+  foreach ($country_data as $iso_code_2 => $name) {
+    $data = (new League\ISO3166\ISO3166)->alpha2($iso_code_2);
+    $term_data = [
+      'vid' => 'iq_geotree',
+      'name' => $name,
+      'status' => 1,
+      'uid' => 1,
+      'field_iqgt_iso_code_2' => $iso_code_2,
+      'field_iqgt_iso3_code' => $data['alpha3'] ?? '',
+      'field_iqgt_iso_num_code' => $data['numeric'] ?? '',
+      'field_iqgt_continent' => $continent_data[$iso_code_2] ?? '',
+    ];
+    $term = Term::create($term_data);
+    $term->enforceIsNew();
+    $term->save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function iq_geotree_uninstall() {
+
+  $vids = [
+    'iq_geotree',
+  ];
+  // Delete 'iq_geotree' taxonomy.
+  foreach ($vids as $vid) {
+    $vocabulary = Vocabulary::load($vid);
+    if (!empty($vocabulary)) {
+      $vocabulary->delete();
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Provides a taxonomy of the countries.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function iq_geotree_help($path, $arg) {
+  switch ($path) {
+    case "help.page.iq_geotree":
+      return '' . t("This module provides a taxonomy of the countries which contains information like ISO2 code, ISO3 code, name, numcode.") . '';
+  }
+}
