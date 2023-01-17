@@ -8,7 +8,6 @@ dependencies:
     - field.field.taxonomy_term.iq_geotree.field_iqgt_iso_numeric_code
     - taxonomy.vocabulary.iq_geotree
   module:
-    - options
     - text
 id: taxonomy_term.iq_geotree.default
 targetEntityType: taxonomy_term
@@ -23,11 +22,12 @@ content:
     weight: 0
     region: content
   field_iqgt_continent:
-    type: list_default
+    type: entity_reference_label
     label: above
-    settings: {  }
+    settings:
+      link: true
     third_party_settings: {  }
-    weight: 1
+    weight: 5
     region: content
   field_iqgt_iso_code_2:
     type: string

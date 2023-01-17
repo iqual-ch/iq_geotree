@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-name: Geotree
+name: Länder
 vid: iq_geotree
-description: 'taxonomy of the countries which contains information like ISO2 code, ISO3 code, name,...'
+description: 'Taxonomy of the countries which contains information like ISO2 code, ISO3 code, name,...'
 weight: 0

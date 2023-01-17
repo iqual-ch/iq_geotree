@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - taxonomy
-id: taxonomy_term.field_iqgt_continent
-field_name: field_iqgt_continent
+id: taxonomy_term.field_iqgt_country
+field_name: field_iqgt_country
 entity_type: taxonomy_term
 type: entity_reference
 settings:
