@@ -76,26 +76,32 @@ function iq_geotree_install() {
   $country_json = file_get_contents('http://country.io/names.json');
   $country_data = json_decode($country_json, TRUE);
   foreach ($country_data as $iso_code_2 => $name) {
-    $data = (new League\ISO3166\ISO3166)->alpha2($iso_code_2);
-    $term_data = [
-      'vid' => 'iq_geotree',
-      'name' => Locale::getDisplayRegion('-' . $iso_code_2, \Drupal::languageManager()->getCurrentLanguage()->getId()),
-      'status' => 1,
-      'uid' => 1,
-      'field_iqgt_iso_code_2' => $iso_code_2,
-      'field_iqgt_iso_code_3' => $data['alpha3'] ?? '',
-      'field_iqgt_iso_numeric_code' => $data['numeric'] ?? '',
-      'field_iqgt_continent' => $continent_data[$iso_code_2] ?? '',
-    ];
-    $term = Term::create($term_data);
-    $term->enforceIsNew();
-    foreach (\Drupal::languageManager()->getLanguages() as $langcode => $language) {
-      if ($language->getId() != \Drupal::languageManager()->getCurrentLanguage()->getId()) {
-        $translated_term = $term->getTranslation($langcode);
-        $translated_term->set('name', Locale::getDisplayRegion('-' . $iso_code_2, $langcode));
+    try {
+      $data = (new League\ISO3166\ISO3166)->alpha2($iso_code_2);
+      $term_data = [
+        'vid' => 'iq_geotree',
+        'name' => Locale::getDisplayRegion('-' . $iso_code_2, \Drupal::languageManager()->getCurrentLanguage()->getId()),
+        'status' => 1,
+        'uid' => 1,
+        'field_iqgt_iso_code_2' => $iso_code_2,
+        'field_iqgt_iso_code_3' => $data['alpha3'] ?? '',
+        'field_iqgt_iso_numeric_code' => $data['numeric'] ?? '',
+        'field_iqgt_continent' => $continent_data[$iso_code_2] ?? '',
+      ];
+
+      $term = Term::create($term_data);
+      $term->enforceIsNew();
+      foreach (\Drupal::languageManager()->getLanguages() as $langcode => $language) {
+        if ($language->getId() != \Drupal::languageManager()->getCurrentLanguage()->getId()) {
+          $translated_term = $term->getTranslation($langcode);
+          $translated_term->set('name', Locale::getDisplayRegion('-' . $iso_code_2, $langcode));
+        }
       }
+      $term->save();
     }
-    $term->save();
+    catch (Exception $e) {
+      \Drupal::logger('iq_geotree')->notice($iso_code_2 . ' does not exist in ISO3166 code. Country ' . $name . ' was not imported.');
+    }
   }
 }
 
