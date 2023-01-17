@@ -5,4 +5,3 @@ package: Taxonomy
 core_version_requirement: ^8.8 || ^9
 dependencies:
   - drupal:taxonomy
-  - league:iso3166

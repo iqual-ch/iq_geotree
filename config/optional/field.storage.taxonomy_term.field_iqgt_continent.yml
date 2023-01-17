@@ -10,7 +10,31 @@ field_name: field_iqgt_continent
 entity_type: taxonomy_term
 type: list_string
 settings:
-  allowed_values: {  }
+  allowed_values:
+    -
+      value: AF
+      label: Africa
+    -
+      value: AN
+      label: Antarctica
+    -
+      value: AS
+      label: Asia
+    -
+      value: EU
+      label: Europe
+    -
+      value: SA
+      label: 'Latin America and the Caribbean'
+    -
+      value: NA
+      label: 'Northern America'
+    -
+      value: OC
+      label: Oceania
+    -
+      value: UN
+      label: Unknown
   allowed_values_function: ''
 module: options
 locked: false
