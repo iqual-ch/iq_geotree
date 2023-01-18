@@ -3,12 +3,12 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_iqgt_continent
-    - taxonomy.vocabulary.continent
-    - taxonomy.vocabulary.iq_geotree
-id: taxonomy_term.iq_geotree.field_iqgt_continent
+    - taxonomy.vocabulary.iqgt_continent
+    - taxonomy.vocabulary.iqgt_country
+id: taxonomy_term.iqgt_country.field_iqgt_continent
 field_name: field_iqgt_continent
 entity_type: taxonomy_term
-bundle: iq_geotree
+bundle: iqgt_country
 label: Kontinent
 description: ''
 required: false
@@ -19,7 +19,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      continent: continent
+      iqgt_continent: iqgt_continent
     sort:
       field: name
       direction: asc

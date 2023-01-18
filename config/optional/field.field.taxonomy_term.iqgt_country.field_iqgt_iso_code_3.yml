@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_iqgt_iso_code_3
-    - taxonomy.vocabulary.iq_geotree
-id: taxonomy_term.iq_geotree.field_iqgt_iso_code_3
+    - taxonomy.vocabulary.iqgt_country
+id: taxonomy_term.iqgt_country.field_iqgt_iso_code_3
 field_name: field_iqgt_iso_code_3
 entity_type: taxonomy_term
-bundle: iq_geotree
+bundle: iqgt_country
 label: 'ISO Code 3'
 description: ''
 required: false

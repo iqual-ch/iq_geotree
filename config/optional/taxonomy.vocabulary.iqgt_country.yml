@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Countries
+vid: iqgt_country
+description: 'Taxonomy of the countries with ISO2 code, ISO3 code, name, continent, region.'
+weight: 0

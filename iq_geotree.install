@@ -17,7 +17,7 @@ function iq_geotree_install() {
 
   iq_geotree_create_config();
 
-  iq_geotree_create_continents();
+  iq_geotree_create_iq_continents();
 
   iq_geotree_create_countries();
 
@@ -34,9 +34,9 @@ function iq_geotree_create_config() {
   $default_config_storage = new FileStorage($default_config_path);
 
   $vids = [
-    'iq_geotree',
-    'continent',
-    'region',
+    'iqgt_country',
+    'iqgt_continent',
+    'iqgt_region',
   ];
 
   foreach ($vids as $vid) {
@@ -56,7 +56,7 @@ function iq_geotree_create_config() {
   }
 }
 
-function iq_geotree_create_continents() {
+function iq_geotree_create_iq_continents() {
   $continents = [
     'AF' => 'Africa',
     'AN' => 'Antartica',
@@ -68,7 +68,7 @@ function iq_geotree_create_continents() {
   ];
   foreach ($continents as $iso_code => $name) {
     $term_data = [
-      'vid' => 'continent',
+      'vid' => 'iqgt_continent',
       'name' => $name,
       'status' => 1,
       'uid' => 1,
@@ -99,12 +99,12 @@ function iq_geotree_create_countries() {
     try {
       $data = (new League\ISO3166\ISO3166)->alpha2($iso_code_2);
       $continent_ids = \Drupal::entityQuery('taxonomy_term')
-        ->condition('vid', 'continent')
+        ->condition('vid', 'iqgt_continent')
         ->condition('field_iqgt_iso_code', $continent_data[$iso_code_2])
         ->execute();
       $continent_id = (!empty($continent_ids)) ? reset($continent_ids) : NULL;
       $term_data = [
-        'vid' => 'iq_geotree',
+        'vid' => 'iqgt_country',
         'name' => Locale::getDisplayRegion('-' . $iso_code_2, \Drupal::languageManager()->getCurrentLanguage()->getId()),
         'status' => 1,
         'uid' => 1,
@@ -138,11 +138,11 @@ function iq_geotree_create_countries() {
  */
 function iq_geotree_uninstall() {
   $vids = [
-    'iq_geotree',
-    'continent',
-    'region',
+    'iqgt_country',
+    'iqgt_continent',
+    'iqgt_region',
   ];
-  // Delete 'iq_geotree' taxonomy.
+  // Delete module taxonomies.
   foreach ($vids as $vid) {
     $vocabulary = Vocabulary::load($vid);
     if (!empty($vocabulary)) {

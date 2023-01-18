@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_iqgt_iso_code
-    - taxonomy.vocabulary.continent
-id: taxonomy_term.continent.field_iqgt_iso_code
+    - taxonomy.vocabulary.iqgt_continent
+id: taxonomy_term.iqgt_continent.field_iqgt_iso_code
 field_name: field_iqgt_iso_code
 entity_type: taxonomy_term
-bundle: continent
+bundle: iqgt_continent
 label: 'ISO Code'
 description: ''
 required: true

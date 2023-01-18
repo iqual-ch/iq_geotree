@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: Regionen
-vid: region
-description: ''
-weight: 0

@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: Kontinente
-vid: continent
-description: ''
-weight: 0

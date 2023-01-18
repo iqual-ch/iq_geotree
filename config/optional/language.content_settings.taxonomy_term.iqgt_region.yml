@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - taxonomy.vocabulary.iq_geotree
+    - taxonomy.vocabulary.iqgt_region
   module:
     - content_translation
 third_party_settings:
   content_translation:
     enabled: true
-id: taxonomy_term.iq_geotree
+id: taxonomy_term.iqgt_region
 target_entity_type_id: taxonomy_term
-target_bundle: iq_geotree
+target_bundle: iqgt_region
 default_langcode: site_default
 language_alterable: false

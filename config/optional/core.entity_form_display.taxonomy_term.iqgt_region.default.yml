@@ -2,59 +2,22 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.iq_geotree.field_iqgt_continent
-    - field.field.taxonomy_term.iq_geotree.field_iqgt_iso_code_2
-    - field.field.taxonomy_term.iq_geotree.field_iqgt_iso_code_3
-    - field.field.taxonomy_term.iq_geotree.field_iqgt_iso_numeric_code
-    - taxonomy.vocabulary.iq_geotree
+    - taxonomy.vocabulary.iqgt_region
   module:
     - hide_revision_field
     - path
     - text
-id: taxonomy_term.iq_geotree.default
+id: taxonomy_term.iqgt_region.default
 targetEntityType: taxonomy_term
-bundle: iq_geotree
+bundle: iqgt_region
 mode: default
 content:
   description:
-    type: text_textfield
+    type: text_textarea
     weight: 0
     region: content
     settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_iqgt_continent:
-    type: entity_reference_autocomplete
-    weight: 105
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_iqgt_iso_code_2:
-    type: string_textfield
-    weight: 102
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_iqgt_iso_code_3:
-    type: string_textfield
-    weight: 103
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_iqgt_iso_numeric_code:
-    type: number
-    weight: 104
-    region: content
-    settings:
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
   langcode:
@@ -102,3 +65,4 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+hidden: {  }

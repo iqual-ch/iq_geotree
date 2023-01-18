@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_iqgt_region
+    - taxonomy.vocabulary.iqgt_country
+    - taxonomy.vocabulary.iqgt_region
+id: taxonomy_term.iqgt_country.field_iqgt_region
+field_name: field_iqgt_region
+entity_type: taxonomy_term
+bundle: iqgt_country
+label: Region
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      iqgt_region: iqgt_region
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

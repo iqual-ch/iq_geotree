@@ -2,15 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.continent.field_iqgt_iso_code
-    - taxonomy.vocabulary.continent
+    - field.field.taxonomy_term.iqgt_country.field_iqgt_continent
+    - field.field.taxonomy_term.iqgt_country.field_iqgt_iso_code_2
+    - field.field.taxonomy_term.iqgt_country.field_iqgt_iso_code_3
+    - field.field.taxonomy_term.iqgt_country.field_iqgt_iso_numeric_code
+    - field.field.taxonomy_term.iqgt_country.field_iqgt_region
+    - taxonomy.vocabulary.iqgt_country
   module:
     - hide_revision_field
     - path
     - text
-id: taxonomy_term.continent.default
+id: taxonomy_term.iqgt_country.default
 targetEntityType: taxonomy_term
-bundle: continent
+bundle: iqgt_country
 mode: default
 content:
   description:
@@ -21,11 +25,46 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_iqgt_iso_code:
-    type: string_textfield
-    weight: 101
+  field_iqgt_continent:
+    type: entity_reference_autocomplete
+    weight: 105
     region: content
     settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_iqgt_iso_code_2:
+    type: string_textfield
+    weight: 102
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_iqgt_iso_code_3:
+    type: string_textfield
+    weight: 103
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_iqgt_iso_numeric_code:
+    type: number
+    weight: 104
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_iqgt_region:
+    type: entity_reference_autocomplete
+    weight: 106
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
@@ -74,4 +113,3 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }

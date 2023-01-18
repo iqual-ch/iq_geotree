@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Continents
+vid: iqgt_continent
+description: 'The world continents with their code and name.'
+weight: 0
