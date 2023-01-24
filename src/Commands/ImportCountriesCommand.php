@@ -5,22 +5,17 @@ namespace Drupal\iq_geotree\Commands;
 use Drush\Commands\DrushCommands;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
- * A Drush commandfile.
+ * A Drush commandfile to import country taxonomy.
  *
- * In addition to this file, you need a drush.services.yml
- * in root of your module, and a composer.json file that provides the name
- * of the services file to use.
+ * Source of data: https://restcountries.com/v3.1/all.
  *
- * See these files for an example of injecting Drupal services:
- *   - http://cgit.drupalcode.org/devel/tree/src/Commands/DevelCommands.php
- *   - http://cgit.drupalcode.org/devel/tree/drush.services.yml
+ * @todo abstract source of data.
  */
-class ProductImportCommand extends DrushCommands {
+class ImportCountriesCommand extends DrushCommands {
 
   /**
    * The entity type manager service.
@@ -50,7 +45,6 @@ class ProductImportCommand extends DrushCommands {
    */
   protected $loggerChannelFactory;
 
-
   /**
    * Constructs a new ProductImportCommand object.
    *
@@ -78,10 +72,10 @@ class ProductImportCommand extends DrushCommands {
   /**
    * Import all countries.
    *
-   * @command ig-geotree:import-countries
-   * @aliases ig-geotree-import-countries
+   * @command iq-geotree:import-countries
+   * @aliases iq-geotree-import-countries
    *
-   * @usage ig-geotree:import-countries
+   * @usage iq-geotree:import-countries
    */
   public function importAll() {
     $json = file_get_contents('https://restcountries.com/v3.1/all');
@@ -104,7 +98,7 @@ class ProductImportCommand extends DrushCommands {
         $this->createOrUpdateTerm('iqgt_country', $country['name']['common'], $data);
         $i++;
       }
-      catch (Exception $e) {
+      catch (\Exception $e) {
         $this->loggerChannelFactory->get('iq_geotree')->notice($e->getMessage());
       }
     }
@@ -113,6 +107,16 @@ class ProductImportCommand extends DrushCommands {
   }
 
 
+  /**
+   * Creates or updates a country taxonomy term.
+   * 
+   * @param string $vid
+   *   The vocabulary id.
+   * @param string $name
+   *   The name of the country.
+   * @param array $data
+   *   An array of data to populate the country.
+   */
   public function createOrUpdateTerm(string $vid, string $name, array $data) {
     $term = NULL;
     $query = $this->database->select('taxonomy_term_field_data', 't');
@@ -143,17 +147,17 @@ class ProductImportCommand extends DrushCommands {
       $translated_term->set('field_iqgt_continent', $data['field_iqgt_continent']);
       $translated_term->set('field_iqgt_subregion', $data['field_iqgt_subregion']);
     }
-    foreach ($this->langageManager->getLanguages() as $langcode => $language) {
+    foreach ($this->languageManager->getLanguages() as $langcode => $language) {
       if ($language->getId() != 'en') {
         if (!$term->hasTranslation($langcode)) {
           $term->addTranslation($langcode);
         }
         $translated_term = $term->getTranslation($langcode);
-        $translated_term->set('name', Locale::getDisplayRegion('-' . $data['field_iqgt_iso_code_2'], $langcode));
+        $translated_term->set('name', \Locale::getDisplayRegion('-' . $data['field_iqgt_iso_code_2'], $langcode));
         $translated_term->save();
       }
     }
     $term->save();
   }
-  
+
 }
