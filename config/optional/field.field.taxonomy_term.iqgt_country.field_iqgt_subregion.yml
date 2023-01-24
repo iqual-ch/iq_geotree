@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_iqgt_continent
+    - field.storage.taxonomy_term.field_iqgt_subregion
     - taxonomy.vocabulary.iqgt_country
-id: taxonomy_term.iqgt_country.field_iqgt_continent
-field_name: field_iqgt_continent
+id: taxonomy_term.iqgt_country.field_iqgt_subregion
+field_name: field_iqgt_subregion
 entity_type: taxonomy_term
 bundle: iqgt_country
-label: Continent
+label: Subregion
 description: ''
 required: false
 translatable: true

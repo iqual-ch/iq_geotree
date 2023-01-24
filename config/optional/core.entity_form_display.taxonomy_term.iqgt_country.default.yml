@@ -6,7 +6,7 @@ dependencies:
     - field.field.taxonomy_term.iqgt_country.field_iqgt_iso_code_2
     - field.field.taxonomy_term.iqgt_country.field_iqgt_iso_code_3
     - field.field.taxonomy_term.iqgt_country.field_iqgt_iso_numeric_code
-    - field.field.taxonomy_term.iqgt_country.field_iqgt_region
+    - field.field.taxonomy_term.iqgt_country.field_iqgt_subregion
     - taxonomy.vocabulary.iqgt_country
   module:
     - hide_revision_field
@@ -26,12 +26,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_iqgt_continent:
-    type: entity_reference_autocomplete
-    weight: 105
+    type: string_textfield
+    weight: 109
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
@@ -58,13 +56,11 @@ content:
     settings:
       placeholder: ''
     third_party_settings: {  }
-  field_iqgt_region:
-    type: entity_reference_autocomplete
-    weight: 106
+  field_iqgt_subregion:
+    type: string_textfield
+    weight: 108
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
@@ -113,3 +109,4 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+hidden: {  }

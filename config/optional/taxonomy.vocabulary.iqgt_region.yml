@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: Regions
-vid: iqgt_region
-description: 'World regions, arbitrary defined, used to group countries in bigger areas.'
-weight: 0
