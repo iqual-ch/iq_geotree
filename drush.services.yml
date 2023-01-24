@@ -1,0 +1,6 @@
+services:
+  iq_geotree.import_countries_command:
+    class: \Drupal\iq_geotree\Commands\ImportCountriesCommand
+    tags:
+      - { name: drush.command }
+    arguments: ['@entity_type.manager', '@database', '@language_manager', '@logger.factory']

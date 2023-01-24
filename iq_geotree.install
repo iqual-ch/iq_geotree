@@ -114,6 +114,7 @@ function createOrUpdateTerm(string $vid, string $name, array $data) {
       }
       $translated_term = $term->getTranslation($langcode);
       $translated_term->set('name', Locale::getDisplayRegion('-' . $data['field_iqgt_iso_code_2'], $langcode));
+      $translated_term->save();
     }
   }
   $term->save();
