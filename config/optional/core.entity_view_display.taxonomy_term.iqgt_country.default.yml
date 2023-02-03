@@ -6,6 +6,8 @@ dependencies:
     - field.field.taxonomy_term.iqgt_country.field_iqgt_iso_code_2
     - field.field.taxonomy_term.iqgt_country.field_iqgt_iso_code_3
     - field.field.taxonomy_term.iqgt_country.field_iqgt_iso_numeric_code
+    - field.field.taxonomy_term.iqgt_country.field_iqgt_lat
+    - field.field.taxonomy_term.iqgt_country.field_iqgt_long
     - field.field.taxonomy_term.iqgt_country.field_iqgt_subregion
     - taxonomy.vocabulary.iqgt_country
   module:
@@ -54,6 +56,28 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_iqgt_lat:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_iqgt_long:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 13
     region: content
   field_iqgt_subregion:
     type: string

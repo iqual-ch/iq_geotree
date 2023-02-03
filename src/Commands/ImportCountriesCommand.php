@@ -93,6 +93,8 @@ class ImportCountriesCommand extends DrushCommands {
           'field_iqgt_iso_numeric_code' => $country['ccn3'],
           'field_iqgt_continent' => $country['region'],
           'field_iqgt_subregion' => $country['subregion'],
+          'field_iqgt_lat' => $country['latlng'][0],
+          'field_iqgt_long' => $country['latlng'][1],
           'langcode' => ['value' => 'en'],
         ];
         $this->createOrUpdateTerm('iqgt_country', $country['name']['common'], $data);
@@ -146,6 +148,8 @@ class ImportCountriesCommand extends DrushCommands {
       $translated_term->set('field_iqgt_iso_numeric_code', $data['field_iqgt_iso_numeric_code']);
       $translated_term->set('field_iqgt_continent', $data['field_iqgt_continent']);
       $translated_term->set('field_iqgt_subregion', $data['field_iqgt_subregion']);
+      $translated_term->set('field_iqgt_lat', $data['field_iqgt_lat']);
+      $translated_term->set('field_iqgt_long', $data['field_iqgt_long']);
     }
     foreach ($this->languageManager->getLanguages() as $langcode => $language) {
       if ($language->getId() != 'en') {

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_iqgt_long
+    - taxonomy.vocabulary.iqgt_country
+id: taxonomy_term.iqgt_country.field_iqgt_long
+field_name: field_iqgt_long
+entity_type: taxonomy_term
+bundle: iqgt_country
+label: Longitude
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal
