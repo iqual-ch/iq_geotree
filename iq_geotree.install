@@ -2,10 +2,9 @@
 
 /**
  * @file
- * iq_geotree install/update/uninstall hook implementation.
+ * Iq_geotree install/update/uninstall hook implementation.
  */
 
-use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Site\Settings;
@@ -21,6 +20,9 @@ function iq_geotree_install() {
 
 }
 
+/**
+ *
+ */
 function iq_geotree_create_config() {
   $module_handler = \Drupal::service('module_handler');
   $module_path = $module_handler->getModule('iq_geotree')->getPath();
@@ -52,9 +54,12 @@ function iq_geotree_create_config() {
   }
 }
 
+/**
+ *
+ */
 function iq_geotree_create_countries() {
   $json = file_get_contents('https://restcountries.com/v3.1/all');
-  $data = json_decode($json, TRUE);
+  $data = json_decode($json, TRUE, 512, JSON_THROW_ON_ERROR);
   foreach ($data as $country) {
     try {
       $data = [
@@ -77,6 +82,9 @@ function iq_geotree_create_countries() {
   }
 }
 
+/**
+ *
+ */
 function createOrUpdateTerm(string $vid, string $name, array $data) {
   $term = NULL;
   $query = \Drupal::database()->select('taxonomy_term_field_data', 't');
