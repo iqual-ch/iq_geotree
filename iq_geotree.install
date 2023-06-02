@@ -21,7 +21,7 @@ function iq_geotree_install() {
 }
 
 /**
- *
+ * Iq Geotree Create Config.
  */
 function iq_geotree_create_config() {
   $module_handler = \Drupal::service('module_handler');
@@ -44,7 +44,8 @@ function iq_geotree_create_config() {
       // Create a new vocabulary from the yaml configuration and save.
       $taxonomy_vocabulary_config = $default_config_storage->read('taxonomy.vocabulary.' . $vid);
       if (empty($taxonomy_vocabulary_config)) {
-        // If config-sync not available then read module's config for vocabulary.
+        // If config-sync not available then read module's config
+        // for vocabulary.
         $taxonomy_vocabulary_config = $iq_geotree_config_storage->read('taxonomy.vocabulary.' . $vid);
       }
       \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')
@@ -55,7 +56,7 @@ function iq_geotree_create_config() {
 }
 
 /**
- *
+ * Iq Geotree Create Countries.
  */
 function iq_geotree_create_countries() {
   $json = file_get_contents('https://restcountries.com/v3.1/all');
@@ -83,7 +84,7 @@ function iq_geotree_create_countries() {
 }
 
 /**
- *
+ * Create or Update Term.
  */
 function createOrUpdateTerm(string $vid, string $name, array $data) {
   $term = NULL;
