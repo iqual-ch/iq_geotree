@@ -40,12 +40,16 @@ function iq_geotree_create_config() {
   foreach ($vids as $vid) {
     $vocabulary = Vocabulary::load($vid);
     if (empty($vocabulary)) {
-      // Obtain the storage manager for vocabularies.
-      // Create a new vocabulary from the yaml configuration and save.
+      /*
+       * Obtain the storate manager for vocabularies.
+       * Create a new vocabulary from the yaml configuration and save.
+       */
       $taxonomy_vocabulary_config = $default_config_storage->read('taxonomy.vocabulary.' . $vid);
       if (empty($taxonomy_vocabulary_config)) {
-        // If config-sync not available then read module's config
-        // for vocabulary.
+        /*
+         * If config-sync not available then read module's config
+         * for vocabulary.
+         */
         $taxonomy_vocabulary_config = $iq_geotree_config_storage->read('taxonomy.vocabulary.' . $vid);
       }
       \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')
