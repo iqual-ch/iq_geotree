@@ -79,7 +79,7 @@ class ImportCountriesCommand extends DrushCommands {
    */
   public function importAll() {
     $json = file_get_contents('https://restcountries.com/v3.1/all');
-    $data = json_decode($json, TRUE);
+    $data = json_decode($json, TRUE, 512, JSON_THROW_ON_ERROR);
     $i = 0;
     foreach ($data as $country) {
       try {
@@ -108,10 +108,9 @@ class ImportCountriesCommand extends DrushCommands {
     return 0;
   }
 
-
   /**
    * Creates or updates a country taxonomy term.
-   * 
+   *
    * @param string $vid
    *   The vocabulary id.
    * @param string $name

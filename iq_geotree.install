@@ -2,10 +2,9 @@
 
 /**
  * @file
- * iq_geotree install/update/uninstall hook implementation.
+ * Iq_geotree install/update/uninstall hook implementation.
  */
 
-use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Site\Settings;
@@ -21,6 +20,9 @@ function iq_geotree_install() {
 
 }
 
+/**
+ * Iq Geotree Create Config.
+ */
 function iq_geotree_create_config() {
   $module_handler = \Drupal::service('module_handler');
   $module_path = $module_handler->getModule('iq_geotree')->getPath();
@@ -38,11 +40,16 @@ function iq_geotree_create_config() {
   foreach ($vids as $vid) {
     $vocabulary = Vocabulary::load($vid);
     if (empty($vocabulary)) {
-      // Obtain the storage manager for vocabularies.
-      // Create a new vocabulary from the yaml configuration and save.
+      /*
+       * Obtain the storate manager for vocabularies.
+       * Create a new vocabulary from the yaml configuration and save.
+       */
       $taxonomy_vocabulary_config = $default_config_storage->read('taxonomy.vocabulary.' . $vid);
       if (empty($taxonomy_vocabulary_config)) {
-        // If config-sync not available then read module's config for vocabulary.
+        /*
+         * If config-sync not available then read module's config
+         * for vocabulary.
+         */
         $taxonomy_vocabulary_config = $iq_geotree_config_storage->read('taxonomy.vocabulary.' . $vid);
       }
       \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')
@@ -52,9 +59,12 @@ function iq_geotree_create_config() {
   }
 }
 
+/**
+ * Iq Geotree Create Countries.
+ */
 function iq_geotree_create_countries() {
   $json = file_get_contents('https://restcountries.com/v3.1/all');
-  $data = json_decode($json, TRUE);
+  $data = json_decode($json, TRUE, 512, JSON_THROW_ON_ERROR);
   foreach ($data as $country) {
     try {
       $data = [
@@ -77,6 +87,9 @@ function iq_geotree_create_countries() {
   }
 }
 
+/**
+ * Create or Update Term.
+ */
 function createOrUpdateTerm(string $vid, string $name, array $data) {
   $term = NULL;
   $query = \Drupal::database()->select('taxonomy_term_field_data', 't');
