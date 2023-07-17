@@ -5,9 +5,9 @@
  * Iq_geotree install/update/uninstall hook implementation.
  */
 
-use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Site\Settings;
+use Drupal\taxonomy\Entity\Vocabulary;
 
 /**
  * Implements hook_install().
