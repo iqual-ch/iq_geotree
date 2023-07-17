@@ -1,7 +1,7 @@
 {
   "name": "iqual/iq_geotree",
   "description": "iQual Geotree provides a worldwide geotree structure as a taxonomy term.",
-  "type": "drupal-module",
+  "type": "drupal-custom-module",
   "repositories": [
     {
       "type": "composer",
