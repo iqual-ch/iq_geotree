@@ -2,6 +2,6 @@ name: iQual Geotree
 type: module
 description: This module provides a taxonomy of the countries which contains information like ISO2 code, ISO3 code, name, official name, numcode.
 package: Taxonomy
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^9.5 || ^10
 dependencies:
   - drupal:taxonomy
