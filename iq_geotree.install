@@ -5,9 +5,10 @@
  * Iq_geotree install/update/uninstall hook implementation.
  */
 
-use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Site\Settings;
+use Drupal\taxonomy\Entity\Vocabulary;
 
 /**
  * Implements hook_install().
@@ -64,7 +65,7 @@ function iq_geotree_create_config() {
  */
 function iq_geotree_create_countries() {
   $json = file_get_contents('https://restcountries.com/v3.1/all');
-  $data = json_decode($json, TRUE, 512, JSON_THROW_ON_ERROR);
+  $data = Json::decode($json);
   foreach ($data as $country) {
     try {
       $data = [
@@ -72,11 +73,11 @@ function iq_geotree_create_countries() {
         'name' => $country['name']['common'],
         'status' => 1,
         'uid' => 1,
-        'field_iqgt_iso_code_2' => $country['cca2'],
-        'field_iqgt_iso_code_3' => $country['cca3'],
-        'field_iqgt_iso_numeric_code' => $country['ccn3'],
-        'field_iqgt_continent' => $country['region'],
-        'field_iqgt_subregion' => $country['subregion'],
+        'field_iqgt_iso_code_2' => $country['cca2'] ?? '',
+        'field_iqgt_iso_code_3' => $country['cca3'] ?? '',
+        'field_iqgt_iso_numeric_code' => $country['ccn3'] ?? '',
+        'field_iqgt_continent' => $country['region'] ?? '',
+        'field_iqgt_subregion' => $country['subregion'] ?? '',
         'langcode' => ['value' => 'en'],
       ];
       createOrUpdateTerm('iqgt_country', $country['name']['common'], $data);

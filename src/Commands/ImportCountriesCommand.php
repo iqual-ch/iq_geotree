@@ -2,11 +2,12 @@
 
 namespace Drupal\iq_geotree\Commands;
 
-use Drush\Commands\DrushCommands;
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drush\Commands\DrushCommands;
 
 /**
  * A Drush commandfile to import country taxonomy.
@@ -79,7 +80,7 @@ class ImportCountriesCommand extends DrushCommands {
    */
   public function importAll() {
     $json = file_get_contents('https://restcountries.com/v3.1/all');
-    $data = json_decode($json, TRUE, 512, JSON_THROW_ON_ERROR);
+    $data = Json::decode($json);
     $i = 0;
     foreach ($data as $country) {
       try {
@@ -88,13 +89,13 @@ class ImportCountriesCommand extends DrushCommands {
           'name' => $country['name']['common'],
           'status' => 1,
           'uid' => 1,
-          'field_iqgt_iso_code_2' => $country['cca2'],
-          'field_iqgt_iso_code_3' => $country['cca3'],
-          'field_iqgt_iso_numeric_code' => $country['ccn3'],
-          'field_iqgt_continent' => $country['region'],
-          'field_iqgt_subregion' => $country['subregion'],
-          'field_iqgt_lat' => $country['latlng'][0],
-          'field_iqgt_long' => $country['latlng'][1],
+          'field_iqgt_iso_code_2' => $country['cca2'] ?? '',
+          'field_iqgt_iso_code_3' => $country['cca3'] ?? '',
+          'field_iqgt_iso_numeric_code' => $country['ccn3'] ?? '',
+          'field_iqgt_continent' => $country['region'] ?? '',
+          'field_iqgt_subregion' => $country['subregion'] ?? '',
+          'field_iqgt_lat' => $country['latlng'][0] ?? '',
+          'field_iqgt_long' => $country['latlng'][1] ?? '',
           'langcode' => ['value' => 'en'],
         ];
         $this->createOrUpdateTerm('iqgt_country', $country['name']['common'], $data);
