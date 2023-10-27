@@ -2,6 +2,7 @@
 
 namespace Drupal\iq_geotree\Commands;
 
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -88,13 +89,13 @@ class ImportCountriesCommand extends DrushCommands {
           'name' => $country['name']['common'],
           'status' => 1,
           'uid' => 1,
-          'field_iqgt_iso_code_2' => $country['cca2'],
-          'field_iqgt_iso_code_3' => $country['cca3'],
-          'field_iqgt_iso_numeric_code' => $country['ccn3'],
-          'field_iqgt_continent' => $country['region'],
-          'field_iqgt_subregion' => $country['subregion'],
-          'field_iqgt_lat' => $country['latlng'][0],
-          'field_iqgt_long' => $country['latlng'][1],
+          'field_iqgt_iso_code_2' => $country['cca2'] ?? '',
+          'field_iqgt_iso_code_3' => $country['cca3'] ?? '',
+          'field_iqgt_iso_numeric_code' => $country['ccn3'] ?? '',
+          'field_iqgt_continent' => $country['region'] ?? '',
+          'field_iqgt_subregion' => $country['subregion'] ?? '',
+          'field_iqgt_lat' => $country['latlng'][0] ?? '',
+          'field_iqgt_long' => $country['latlng'][1] ?? '',
           'langcode' => ['value' => 'en'],
         ];
         $this->createOrUpdateTerm('iqgt_country', $country['name']['common'], $data);

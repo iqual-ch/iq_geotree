@@ -5,6 +5,7 @@
  * Iq_geotree install/update/uninstall hook implementation.
  */
 
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Site\Settings;
 use Drupal\taxonomy\Entity\Vocabulary;
@@ -72,11 +73,11 @@ function iq_geotree_create_countries() {
         'name' => $country['name']['common'],
         'status' => 1,
         'uid' => 1,
-        'field_iqgt_iso_code_2' => $country['cca2'],
-        'field_iqgt_iso_code_3' => $country['cca3'],
-        'field_iqgt_iso_numeric_code' => $country['ccn3'],
-        'field_iqgt_continent' => $country['region'],
-        'field_iqgt_subregion' => $country['subregion'],
+        'field_iqgt_iso_code_2' => $country['cca2'] ?? '',
+        'field_iqgt_iso_code_3' => $country['cca3'] ?? '',
+        'field_iqgt_iso_numeric_code' => $country['ccn3'] ?? '',
+        'field_iqgt_continent' => $country['region'] ?? '',
+        'field_iqgt_subregion' => $country['subregion'] ?? '',
         'langcode' => ['value' => 'en'],
       ];
       createOrUpdateTerm('iqgt_country', $country['name']['common'], $data);
