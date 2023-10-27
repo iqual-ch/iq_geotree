@@ -79,7 +79,7 @@ class ImportCountriesCommand extends DrushCommands {
    */
   public function importAll() {
     $json = file_get_contents('https://restcountries.com/v3.1/all');
-    $data = json_decode($json, TRUE, 512, JSON_THROW_ON_ERROR);
+    $data = Json::decode($json);
     $i = 0;
     foreach ($data as $country) {
       try {
