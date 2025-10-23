@@ -80,7 +80,7 @@ function iq_geotree_create_countries() {
         'field_iqgt_subregion' => $country['subregion'] ?? '',
         'langcode' => ['value' => 'en'],
       ];
-      createOrUpdateTerm('iqgt_country', $country['name']['common'], $data);
+      create_or_update_term('iqgt_country', $country['name']['common'], $data);
     }
     catch (Exception $e) {
       \Drupal::logger('iq_geotree')->notice($e->getMessage());
@@ -91,7 +91,7 @@ function iq_geotree_create_countries() {
 /**
  * Create or Update Term.
  */
-function createOrUpdateTerm(string $vid, string $name, array $data) {
+function create_or_update_term(string $vid, string $name, array $data) {
   $term = NULL;
   $query = \Drupal::database()->select('taxonomy_term_field_data', 't');
   $query

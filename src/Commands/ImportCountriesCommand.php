@@ -62,8 +62,8 @@ class ImportCountriesCommand extends DrushCommands {
     EntityTypeManagerInterface $entity_type_manager,
     Connection $database,
     LanguageManagerInterface $language_manager,
-    LoggerChannelFactoryInterface $loggerChannelFactory
-    ) {
+    LoggerChannelFactoryInterface $loggerChannelFactory,
+  ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->database = $database;
     $this->languageManager = $language_manager;
